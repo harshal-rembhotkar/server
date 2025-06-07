@@ -1,0 +1,24 @@
+{
+  "name": "clipsmart-ai",
+  "version": "1.0.0",
+  "description": "AI-powered video clip generation and transcript processing tool",
+  "main": "index.js",
+  "scripts": {
+    "start": "concurrently \"cd backend && npm run start\" \"cd frontend && npm run start\"",
+    "dev": "concurrently \"cd backend && npm run dev\" \"cd frontend && npm run start\"",
+    "install-all": "npm install && cd backend && npm install && cd ../frontend && npm install",
+    "build": "cd frontend && npm run build",
+    "build:production": "cd frontend && REACT_APP_NODE_ENV=production npm run build",
+    "deploy": "npm run build:production && cd backend && npm run start:production",
+    "start:production": "cd backend && npm run start:production",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "clipsmart-ai": "file:",
+    "concurrently": "^9.1.2",
+    "node-cache": "^5.1.2",
+    "proxy-agent": "^6.5.0"
+  },
+  "author": "",
+  "license": "ISC"
+}
