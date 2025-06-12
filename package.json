@@ -1,24 +1,32 @@
 {
-  "name": "clipsmart-ai",
+  "name": "clip-smart-frontend",
   "version": "1.0.0",
-  "description": "AI-powered video clip generation and transcript processing tool",
-  "main": "index.js",
+  "private": true,
+  "description": "React frontend for ClipSmart AI",
   "scripts": {
-    "start": "concurrently \"cd backend && npm run start\" \"cd frontend && npm run start\"",
-    "dev": "concurrently \"cd backend && npm run dev\" \"cd frontend && npm run start\"",
-    "install-all": "npm install && cd backend && npm install && cd ../frontend && npm install",
-    "build": "cd frontend && npm run build",
-    "build:production": "cd frontend && REACT_APP_NODE_ENV=production npm run build",
-    "deploy": "npm run build:production && cd backend && npm run start:production",
-    "start:production": "cd backend && npm run start:production",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
   },
   "dependencies": {
-    "clipsmart-ai": "file:",
-    "concurrently": "^9.1.2",
-    "node-cache": "^5.1.2",
-    "proxy-agent": "^6.5.0"
+    "axios": "^1.7.2",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.23.0",
+    "react-scripts": "5.0.1"
   },
-  "author": "",
-  "license": "ISC"
+  "proxy": "http://localhost:4001",
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
 }
