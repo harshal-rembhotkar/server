@@ -1,18 +1,84 @@
 services:
   - type: web
-    name: clipsmart-transcript-api
-    env: python
-    buildCommand: cd python_backend && pip install -r requirements.txt
-    startCommand: cd python_backend && gunicorn app:app --bind 0.0.0.0:$PORT
+    name: clip-smart-backend
+    env: node
+    plan: free
+    buildCommand: cd backend && npm install
+    startCommand: cd backend && npm start
+    rootDir: backend
     envVars:
+      - key: PORT
+        value: 4001
+
+      # MongoDB
+      - key: MONGODB_URL
+        value: mongodb+srv://harshal:harshal7u@cluster0.lqcovbj.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
+      - key: MONGODB_URI
+        value: mongodb+srv://harshal:harshal7u@cluster0.lqcovbj.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
+
+      # CORS Configuration (allow frontend)
+      - key: ALLOWED_ORIGINS
+        value: https://clip-smart-frontend.onrender.com
+
+      # Google Auth Configuration
+      - key: AUTH_CLIENT_ID
+        value: 392757212565-3svburjnbq6v395stientob0cbh9i2j6.apps.googleusercontent.com
+      - key: CLIENT_PROJECT_ID
+        value: clip-smart-ai-462106
+      - key: AUTH_URI
+        value: https://accounts.google.com/o/oauth2/auth
+      - key: TOKEN_URI
+        value: https://oauth2.googleapis.com/token
+      - key: AUTH_PROVIDER_X509_CERT_URL
+        value: https://www.googleapis.com/oauth2/v1/certs
+      - key: CLIENT_SECRET
+        value: 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
+      - key: JAVASCRIPT_ORIGINS
+        value: https://clip-smart-frontend.onrender.com
+
+      # API Keys
+      - key: OPENAI_API_KEY
+        value: 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
       - key: YOUTUBE_API_KEY
-        sync: false
-      - key: PROXY_URL
-        sync: false
-      - key: FLASK_HOST
-        value: 0.0.0.0
-      - key: FLASK_PORT
-        fromService:
-          type: web
-          name: clipsmart-transcript-api
-          envVarKey: PORT 
+        value: AIzaSyDGka15KX9y5IHBZ5WKZgfe1XNKJJMmEeM
+      - key: ANTHROPIC_API_KEY
+        value: claude-prod-3KZ7Fg89HjtQzP56RmnKoUvWxFqLpBZdsXeGQi2u
+
+      # JWT
+      - key: JWT_SECRET
+        value: a56ff6e12fee27cf5356ebdc38601e8c5bd49d331d3b70d56238348e956ea217
+
+      # AWS (Optional)
+      - key: AWS_ACCESS_KEY_ID
+        value: your_access_key
+      - key: AWS_SECRET_ACCESS_KEY
+        value: your_secret_key
+      - key: AWS_S3_BUCKET
+        value: your_bucket_name
+      - key: AWS_REGION
+        value: your_aws_region
+
+      - key: NODE_ENV
+        value: production
+
+  - type: web
+    name: clip-smart-frontend
+    env: node
+    plan: free
+    buildCommand: cd frontend && npm install && npm run build
+    startCommand: cd frontend && npm install -g serve && serve -s build
+    rootDir: frontend
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: REACT_APP_API_URL
+        value: https://clip-smart-backend.onrender.com
+
+      - key: REACT_APP_PROXY_USERNAME
+        value: fsjhxikx
+      - key: REACT_APP_PROXY_PASSWORD
+        value: 11r9zooaix1v
+      - key: REACT_APP_PROXY_URL
+        value: http://ipv4.webshare.io/
+      - key: REACT_APP_PROXY_PORT
+        value: 6540
