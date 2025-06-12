@@ -1189,8 +1189,7 @@ const MergeClipsPage = () => {
         setProgressMessage("Preparing video for sharing. This may take a moment...");
         
         // Extract job ID from mergedVideoUrl if available
-        // Example URL: https://clip-smart-ai-backend.onrender.com
-/api/merge/video/0d7bbfc4-8d5a-4e50-8507-e94c4f082b6a/merged_1742710736093.mp4
+        // Example URL: https://clip-smart-ai-backend.onrender.com/api/merge/video/0d7bbfc4-8d5a-4e50-8507-e94c4f082b6a/merged_1742710736093.mp4
         const urlMatch = mergedVideoUrl.match(/\/api\/merge\/video\/([^\/]+)\//);
         let jobId = null;
         
@@ -1308,8 +1307,7 @@ const MergeClipsPage = () => {
   const extractJobIdFromUrl = (url) => {
     if (!url) return null;
     
-    // Example URL: https://clip-smart-ai-backend.onrender.com
-/api/merge/video/0d7bbfc4-8d5a-4e50-8507-e94c4f082b6a/merged_1742710736093.mp4
+    // Example URL: https://clip-smart-ai-backend.onrender.com/api/merge/video/0d7bbfc4-8d5a-4e50-8507-e94c4f082b6a/merged_1742710736093.mp4
     const matches = url.match(/\/api\/merge\/video\/([^\/]+)\//);
     if (matches && matches[1]) {
       return matches[1];
