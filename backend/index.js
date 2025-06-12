@@ -34,7 +34,7 @@ const corsConfig = () => {
     // For development, use specific allowed origins
     const allowedOrigins = process.env.ALLOWED_ORIGINS ? 
         process.env.ALLOWED_ORIGINS.split(',') : 
-        ['http://localhost:3000', 'http://127.0.0.1:3000'];
+        ['https://clip-smart-ai.vercel.app/', 'http://127.0.0.1:3000'];
     
     console.log('CORS: Allowing requests from specific origins:', allowedOrigins);
     return {

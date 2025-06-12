@@ -27,7 +27,7 @@ router.get('/oauth2callback', async (req, res) => {
     try {
         const { tokens } = await oauth2Client.getToken(code);
         oauth2Client.setCredentials(tokens);
-        res.redirect('http://localhost:3000');
+        res.redirect('https://clip-smart-ai.vercel.app/');
     } catch (error) {
         console.error('Error getting OAuth tokens:', error);
         res.status(500).json({ error: 'Failed to authenticate' });

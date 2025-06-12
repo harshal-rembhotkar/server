@@ -16,7 +16,7 @@
     "react-router-dom": "^6.23.0",
     "react-scripts": "5.0.1"
   },
-  "proxy": "http://localhost:4001",
+  "proxy": "https://clip-smart-ai-backend.onrender.com",
   "browserslist": {
     "production": [
       ">0.2%",
