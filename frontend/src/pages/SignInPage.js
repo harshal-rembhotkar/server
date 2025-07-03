@@ -49,9 +49,29 @@ const SignInPage = () => {
       setSuccess('Account created successfully! Please sign in to continue.');
     }
 
+    // Initialize Google API
+    initializeGoogleAPI();
+
     // Check server status
     checkServerStatus();
   }, [navigate]);
+
+  const initializeGoogleAPI = () => {
+    if (window.gapi) {
+      window.gapi.load('auth2', () => {
+        window.gapi.auth2.init({
+          client_id: process.env.REACT_APP_GOOGLE_CLIENT_ID || '392757212565-3svburjnbq6v395stientob0cbh9i2j6.apps.googleusercontent.com'
+        }).then(() => {
+          console.log('Google API initialized successfully');
+        }).catch((error) => {
+          console.error('Google API initialization failed:', error);
+        });
+      });
+    } else {
+      // If gapi is not loaded yet, wait and try again
+      setTimeout(initializeGoogleAPI, 100);
+    }
+  };
 
   const checkServerStatus = async () => {
     setServerStatus('checking');
@@ -151,14 +171,31 @@ const SignInPage = () => {
       switch (provider) {
         case 'Google':
           if (!window.gapi || !window.gapi.auth2) {
-            throw new Error('Google API not loaded. Please try again later.');
+            throw new Error('Google API not loaded. Please refresh the page and try again.');
           }
           
-          // Initialize Google Sign-In
           const googleAuth = window.gapi.auth2.getAuthInstance();
-          const googleUser = await googleAuth.signIn();
-          const googleToken = googleUser.getAuthResponse().id_token;
-          await authService.loginWithGoogle(googleToken);
+          if (!googleAuth) {
+            throw new Error('Google authentication not initialized. Please refresh the page.');
+          }
+          
+          try {
+            const googleUser = await googleAuth.signIn({
+              scope: 'profile email openid'
+            });
+            const googleToken = googleUser.getAuthResponse().id_token;
+            
+            if (!googleToken) {
+              throw new Error('Failed to get Google authentication token.');
+            }
+            
+            await authService.loginWithGoogle(googleToken);
+          } catch (googleError) {
+            if (googleError.error === 'popup_closed_by_user') {
+              throw new Error('Google sign-in was cancelled.');
+            }
+            throw googleError;
+          }
           break;
 
         case 'GitHub':

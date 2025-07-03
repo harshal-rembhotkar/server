@@ -4,7 +4,7 @@ const { axiosWithProxy } = require("../utils/axiosWithProxy");
 const User = require("../model/usersSchema");
 const jwt = require("jsonwebtoken");
 
-const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
+const client = new OAuth2Client(process.env.AUTH_CLIENT_ID);
 
 const signinUserWithPassword = async (req, res) => {
   try {
@@ -90,7 +90,7 @@ const signinUserWithGoogle = async (req, res) => {
     // Verify the Google token
     const ticket = await client.verifyIdToken({
       idToken: token,
-      audience: process.env.GOOGLE_CLIENT_ID,
+      audience: process.env.AUTH_CLIENT_ID,
     });
 
     const { email, name, picture, sub } = ticket.getPayload();
