@@ -100,20 +100,20 @@ app.use('/api/merge', mergeRoute);
 app.use('/api/projects', projectRoutes);
 app.use('/api/v1/health', healthRoute);
 
-if (process.env.NODE_ENV === 'production') {
-    console.log('Serving static frontend files in production mode');
+// if (process.env.NODE_ENV === 'production') {
+//     console.log('Serving static frontend files in production mode');
     
-    // Serve static files from the React build directory
-    app.use(express.static(path.join(__dirname, '../frontend/build')));
+//     // Serve static files from the React build directory
+//     app.use(express.static(path.join(__dirname, '../frontend/build')));
     
-    app.get('*', (req, res) => {
-        // Don't serve the React app for API routes or static files
-        if (req.url.startsWith('/api/') || req.url.startsWith('/temp/')) {
-            return res.status(404).json({ message: 'API endpoint not found' });
-        }
-        res.sendFile(path.join(__dirname, '../frontend/build/index.html'));
-    });
-}
+//     app.get('*', (req, res) => {
+//         // Don't serve the React app for API routes or static files
+//         if (req.url.startsWith('/api/') || req.url.startsWith('/temp/')) {
+//             return res.status(404).json({ message: 'API endpoint not found' });
+//         }
+//         res.sendFile(path.join(__dirname, '../frontend/build/index.html'));
+//     });
+// }
 
 // Global error handler
 app.use((err, req, res, next) => {

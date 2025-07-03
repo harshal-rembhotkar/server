@@ -5,7 +5,7 @@ const dotenv = require('dotenv');
 dotenv.config();
 
 //const PYTHON_API = process.env.PYTHON_API;
-const APPLICATION_URL = process.env.APPLICATION_URL || 'https://clip-smart-ai-backend.onrender.com';
+const APPLICATION_URL = process.env.APPLICATION_URL || 'http://localhost:4001';
 
 // Configure global settings for Google APIs
 google.options({
@@ -19,7 +19,7 @@ google.options({
 const oauth2Client = new google.auth.OAuth2(
     process.env.GOOGLE_CLIENT_ID,
     process.env.GOOGLE_CLIENT_SECRET,
-    'https://clip-smart-ai-backend.onrender.com/api/v1/youtube/oauth2callback'
+    'http://localhost:4001/api/v1/youtube/oauth2callback'
 );
 
 // Create YouTube API client with correct configuration
